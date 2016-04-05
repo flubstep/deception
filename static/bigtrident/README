@@ -1,0 +1,19 @@
+BigTrident tileset release 2.2-1 for Freeciv 2.2
+
+Description: The Trident tileset in double size.
+
+By Peter <freeciv AT maubp.freeserve.co.uk>
+
+Based on the Trident tileset by Tatu Rissanen <tatu.rissanen AT hut.fi>
+
+Edited by Björn Michaelsen and Daniel Markstedt
+
+Tip: To regenerate the larger flags and shields, copy all SVG images in
+data/flags/ from the Freeciv 2.2 source tarball to the flags/ subdirectory
+of this tileset and then run the convert_png script.
+
+Copyright (C) 2002 Peter <freeciv AT maubp.freeserve.co.uk>
+This work may be redistributed under the terms of the
+GNU GPL version 2 or later.
+
+www.freeciv.org

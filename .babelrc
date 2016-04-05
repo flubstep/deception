@@ -1,0 +1,11 @@
+{
+  "presets": [
+    "es2015",
+    "stage-0",
+    "react",
+    "survivejs-kanban"
+  ],
+  "plugins": [
+    "transform-async-to-generator"
+  ]
+}
