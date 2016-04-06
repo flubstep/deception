@@ -15,6 +15,8 @@ Playing around:
 Basics:
 ===
 
+- Globals are defined in `Constants.js`
+- `Game` is actually a `GameThree` object... will fix that someday
 - `Game.load` creates a bunch of ThreeJS objects that get added to `Game.scene` (a THREE.Scene())
 - `Game.update` gets called on every animation frame, effectively 60x per second
 - `Game.camera` can move around the same way that any object can, except it also has directionality
