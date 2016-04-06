@@ -11,7 +11,7 @@
   "homepage": "http://flubstep.com",
   "main": "./server.js",
   "scripts": {
-    "build": "webpack --config webpack.config.prod.js && scp dist/bundle.* flubstep.com:~/flubworld.com/static/",
+    "build": "webpack --config webpack.config.prod.js",
     "dev": "node server.js"
   },
   "dependencies": {
