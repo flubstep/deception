@@ -2,8 +2,8 @@
  * @providesModule Constants
  */
 
-const screenWidth = 800;
-const screenHeight = 600;
+const screenWidth = window.innerWidth;
+const screenHeight = window.innerHeight;
 const epsilon = 0.000001;
 
 const debug = true;
