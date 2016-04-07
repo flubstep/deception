@@ -100,10 +100,10 @@ class Hill extends GameObject {
 
   create(options) {
     let color = (g.colors.lawnGreen);
-    let geometry = new THREE.BoxGeometry(1, 1, 1);
+    let geometry = new THREE.BoxGeometry(1, 1.4, 1);
     let material = new THREE.MeshLambertMaterial({color});
     let box = new THREE.Mesh(geometry, material);
-    box.position.set(options.x, 0.5, options.y);
+    box.position.set(options.x, 0.3, options.y);
     this.addMesh(box);
   }
 }
@@ -114,10 +114,10 @@ class Mountain extends GameObject {
 
   create(options) {
     let color = (g.colors.lawnGreen);
-    let geometry = new THREE.BoxGeometry(1, 2, 1);
+    let geometry = new THREE.BoxGeometry(1, 2.4, 1);
     let material = new THREE.MeshLambertMaterial({color});
     let box = new THREE.Mesh(geometry, material);
-    box.position.set(options.x, 1, options.y);
+    box.position.set(options.x, 0.8, options.y);
     this.addMesh(box);
   }
 }
