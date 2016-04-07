@@ -23,13 +23,9 @@ const round = (n, digits = 2) => {
 }
 
 Game.load = () => {
+  let firebaseRef = new Firebase(g.firebaseUrl);
   camera = new Camera(Game.stage);
-  gamemap = new GameMap(camera);
-  range(0, 100).map((i) => {
-    range(0, 100).map((j) => {
-      gamemap.add(i*60, j*60, 'Ocean');
-    });
-  });
+  gamemap = new GameMap(camera, firebaseRef);
   let select = (terrain) => {
     return () => {
       currentTerrain = terrain;
