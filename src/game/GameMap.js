@@ -19,8 +19,8 @@ export default class GameMap {
   }
 
   _normalize(mapX, mapY) {
-    let x = Math.floor(mapX/tileSide) * tileSide;
-    let y = Math.floor(mapY/tileSide) * tileSide;
+    let x = Math.floor(mapX/tileSide);
+    let y = Math.floor(mapY/tileSide);
     let key = 'x:' + x + ',y:' + y;
     return {x, y, key};
   }

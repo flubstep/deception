@@ -16,8 +16,8 @@ let makeTerrain = (offsetX, offsetY, name) => {
   return {
     create: (options) => {
       let sprite = new PIXI.Sprite(texture);
-      sprite.x = options.x || 0;
-      sprite.y = options.y || 0;
+      sprite.x = options.x * tileSide|| 0;
+      sprite.y = options.y * tileSide|| 0;
       sprite.name = name;
       return sprite;
     }
