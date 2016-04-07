@@ -1,24 +1,11 @@
-'use strict';
+/*
+ * @providesModule BuildPage
+ */
 
-import 'babel-core/register';
-import 'babel-polyfill';
-import './style.css';
-import Game from './util/Game';
-
-// don't anti-alias textures
-PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST;
-Game.container = document.getElementById('container');
-
-import OutputContainer from './util/OutputContainer.js';
-import Constants from './util/Constants.js';
-import Camera from './util/Camera.js';
-import GameMap from './game/GameMap.js';
-import Keyboard from './util/Keyboard.js';
-
-// set up convenience functionality
-window.g = Constants;
-window.info = new OutputContainer('debug');
-window.Game = Game;
+import Game from '../util/GameTwo.js';
+import Camera from '../util/Camera.js';
+import GameMap from '../game/GameMap.js';
+import Keyboard from '../util/Keyboard.js';
 
 // game logic main
 
@@ -87,7 +74,18 @@ Game.mouseup = (e) => {
   mouseDown = false;
 }
 
-PIXI.loader
-  .add("static/tiles.png")
-  .add("static/bigtrident/tiles.png")
-  .load(Game.start);
+const load = () => {
+  // don't anti-alias textures
+  Game.container = document.getElementById('container');
+  PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST;
+  PIXI.loader
+    .add("static/tiles.png")
+    .add("static/bigtrident/tiles.png")
+    .load(Game.start);
+}
+
+const BuildPage = {
+  load
+};
+
+export default BuildPage;

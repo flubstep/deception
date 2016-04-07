@@ -3,7 +3,7 @@
  */
 
 const tileSide = 60;
-const terrainSheet  = PIXI.BaseTexture.fromImage("static/bigtrident/tiles.png");
+const terrainSheet = PIXI.BaseTexture.fromImage("static/bigtrident/tiles.png");
 
 let makeTerrain = (offsetX, offsetY, name) => {
 

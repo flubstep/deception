@@ -3,112 +3,21 @@
 import 'babel-core/register';
 import 'babel-polyfill';
 import './style.css';
-import GameThree from './util/GameThree';
-
-GameThree.container = document.getElementById('container');
 
 import OutputContainer from './util/OutputContainer.js';
 import Constants from './util/Constants.js';
-import Camera from './util/Camera.js';
-import GameMap from './game/GameMap.js';
-import Keyboard from './util/Keyboard.js';
 
 // set up convenience functionality
 window.g = Constants;
 window.info = new OutputContainer('debug');
-window.Game = GameThree;
 
-// game logic main
+import WalkPage from './pages/WalkPage.js';
+import BuildPage from './pages/BuildPage.js';
 
-let {range, random} = require('lodash');
-
-window.camera = null;
-window.gamemap = null;
-window.cubes = [];
-
-const speed = 2;
-const rotSpeed = 1;
-
-const round = (n, digits = 2) => {
-  let r = Math.pow(10, digits);
-  return Math.round(n * r) / r;
+if (window.location.pathname == '/') {
+  window.addEventListener('load', WalkPage.load);
+} else if (window.location.pathname == '/build') {
+  window.addEventListener('load', BuildPage.load);
+} else {
+  console.error("Invalid page location: " + window.location.pathname)
 }
-
-const makeCube = (x, y, z, height) => {
-  let geometry = new THREE.BoxGeometry(1, height, 1);
-  let material = new THREE.MeshPhongMaterial( {color: 0xffffff });
-  let cube = new THREE.Mesh(geometry, material);
-  cube.position.set(x, y, z);
-  cube.material.side = THREE.DoubleSide;
-  return cube;
-}
-
-const makeGround = (scene) => {
-
-  range(-10, 10).map((z) => {
-    range(-10, 10).map((x) => {
-      let color = (x == 0 || z == 0 || z == -2 || z == -4 || z == -6) ? 0xaaddaa : 0x009900;
-      let geometry = new THREE.BoxGeometry(1, 0.2, 1);
-      let material = new THREE.MeshLambertMaterial({color});
-      let plane = new THREE.Mesh(geometry, material);
-      plane.position.set(x, -0.1, z);
-      scene.add(plane);
-    });
-  });
-}
-
-const makeSky = (scene) => {
-  let geometry = new THREE.SphereGeometry(100, 60, 40);
-  let material = new THREE.MeshBasicMaterial({color: 0x002044});
-  let sky = new THREE.Mesh(geometry, material);
-  sky.material.side = THREE.DoubleSide;
-  scene.add(sky);
-  return sky;
-}
-
-Game.load = () => {
-  camera = Game.camera;
-  range(-5, 5).map((i) => {
-    ([-1, -3, -5, -7]).map((j) => {
-      let height = random(1, 3);
-      let cube = makeCube(i*2+1, height/2, j, height);
-      cubes.push(cube);
-      Game.scene.add(cube);
-    });
-  });
-
-  let ground = makeGround(Game.scene);
-  let sky = makeSky(Game.scene);
-
-  window.light = new THREE.PointLight(0xffffff, 1, 30, 1);
-  light.position.set(0, 5, 5);
-  Game.scene.add(light);
-
-  Game.camera.position.y = 0.5;
-  Game.camera.position.z = 5;
-}
-
-Game.update = (dt) => {
-  let fps = 1/dt;
-  info.log('FPS:', round(1/dt));
-  info.log('Camera position: (' + [camera.position.x, camera.position.y, camera.position.z].map(round).join(', ') + ')');
-
-  let direction = camera.getWorldDirection().normalize();
-  //light.position.set(camera.position.x, camera.position.y+1, camera.position.z);
-
-  if (Keyboard.isDown('ArrowDown')) {
-    camera.position.sub(direction.multiplyScalar(dt * speed));
-  }
-  if (Keyboard.isDown('ArrowUp')) {
-    camera.position.add(direction.multiplyScalar(dt * speed));
-  }
-  if (Keyboard.isDown('ArrowLeft')) {
-    camera.rotation.y += rotSpeed * dt;
-  }
-  if (Keyboard.isDown('ArrowRight')) {
-    camera.rotation.y -= rotSpeed * dt;
-  }
-
-}
-
-window.addEventListener('load', Game.start);
