@@ -6,7 +6,7 @@ const screenWidth = window.innerWidth;
 const screenHeight = window.innerHeight;
 const epsilon = 0.000001;
 
-const firebaseUrl = 'https://flubworld.firebaseio.com/game'
+const firebaseUrl = 'https://flubworld.firebaseio.com/'
 
 const debug = true;
 

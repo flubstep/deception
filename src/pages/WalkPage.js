@@ -8,6 +8,7 @@ import GameMap from '../game/GameMap.js';
 import Keyboard from '../util/Keyboard.js';
 import Terrain3D from '../game3d/Terrain3D.js';
 import MapLoader from '../game3d/MapLoader.js';
+import parseUrl from '../util/parseUrl.js';
 
 // game logic main
 let {range, random} = require('lodash');
@@ -34,8 +35,9 @@ const makeSky = (scene) => {
 }
 
 Game.load = () => {
+  let route = parseUrl();
   camera = Game.camera;
-  let firebaseRef = new Firebase(g.firebaseUrl);
+  let firebaseRef = new Firebase(g.firebaseUrl).child(route.map);
   let loader = new MapLoader(Game.scene, firebaseRef);
 
   let sky = makeSky(Game.scene);

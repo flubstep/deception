@@ -6,6 +6,7 @@ import Game from '../util/GameTwo.js';
 import Camera from '../util/Camera.js';
 import GameMap from '../game/GameMap.js';
 import Keyboard from '../util/Keyboard.js';
+import parseUrl from '../util/parseUrl.js';
 
 // game logic main
 
@@ -23,7 +24,8 @@ const round = (n, digits = 2) => {
 }
 
 Game.load = () => {
-  let firebaseRef = new Firebase(g.firebaseUrl);
+  let route = parseUrl();
+  let firebaseRef = new Firebase(g.firebaseUrl).child(route.map);
   camera = new Camera(Game.stage);
   gamemap = new GameMap(camera, firebaseRef);
   let select = (terrain) => {

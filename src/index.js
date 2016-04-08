@@ -13,10 +13,13 @@ window.info = new OutputContainer('debug');
 
 import WalkPage from './pages/WalkPage.js';
 import BuildPage from './pages/BuildPage.js';
+import parseUrl from './util/parseUrl.js';
 
-if (window.location.pathname == '/') {
+let route = parseUrl();
+
+if (route.page == 'walk') {
   window.addEventListener('load', WalkPage.load);
-} else if (window.location.pathname == '/build') {
+} else if (route.page == 'build') {
   window.addEventListener('load', BuildPage.load);
 } else {
   console.error("Invalid page location: " + window.location.pathname)
