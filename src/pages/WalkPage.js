@@ -41,8 +41,9 @@ Game.load = () => {
   let loader = new MapLoader(Game.scene, firebaseRef);
 
   let sky = makeSky(Game.scene);
-  let light = new THREE.PointLight(0xffffff, 1, 30, 1);
-  light.position.set(0, 5, 5);
+  let skyLight = new THREE.AmbientLight(0x404040);
+  window.light = new THREE.PointLight(0xffffff, 1, 20, 1);
+  Game.scene.add(skyLight);
   Game.scene.add(light);
 
   Game.camera.position.y = 0.5;
@@ -55,6 +56,7 @@ Game.update = (dt) => {
   info.log('Camera position: (' + [camera.position.x, camera.position.y, camera.position.z].map(round).join(', ') + ')');
 
   let direction = camera.getWorldDirection().normalize();
+  light.position.set(camera.position.x, 10, camera.position.z);
 
   if (Keyboard.isDown('ArrowDown')) {
     camera.position.sub(direction.multiplyScalar(dt * speed));
