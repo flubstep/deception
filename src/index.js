@@ -13,11 +13,14 @@ window.info = new OutputContainer('debug');
 
 import WalkPage from './pages/WalkPage.js';
 import BuildPage from './pages/BuildPage.js';
+import IndexPage from './pages/IndexPage.js';
 import parseUrl from './util/parseUrl.js';
 
 let route = parseUrl();
 
-if (route.page == 'walk') {
+if (route.page == 'index') {
+  window.addEventListener('load', IndexPage.load);
+} else if (route.page == 'walk') {
   window.addEventListener('load', WalkPage.load);
 } else if (route.page == 'build') {
   window.addEventListener('load', BuildPage.load);
