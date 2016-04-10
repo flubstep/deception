@@ -70,7 +70,16 @@ Game.update = (dt) => {
   if (Keyboard.isDown('ArrowRight')) {
     camera.rotation.y -= rotSpeed * dt;
   }
+}
 
+window.setCameraTopDown = () => {
+  camera.position.y = 5;
+  camera.rotation.x = 0.5;
+}
+
+window.setCameraForwards = () => {
+  camera.position.y = 0.5;
+  camera.rotation.x = 0;
 }
 
 Game.container = document.getElementById('container');

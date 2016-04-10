@@ -11,7 +11,7 @@ let {
 import Keyboard from '../util/Keyboard.js';
 
 const panSpeed = 5;
-const zoomRatio = 1.5;
+const zoomRatio = 1.02;
 
 export default class Camera {
 
@@ -21,12 +21,15 @@ export default class Camera {
     this.y = options.y || 0;
     this.z = options.z || 1;
     this.zoomIncr = 0;
+    this.scrollTarget = 0;
 
     this.layer = new PIXI.Container();
     this.stage.addChild(this.layer);
 
-    Keyboard.addListener('Minus', () => { this.zoomOut(); });
-    Keyboard.addListener('Equal', () => { this.zoomIn(); });
+    window.addEventListener('wheel', (e) => {
+      this.scrollTarget += e.deltaY;
+      e.preventDefault();
+    });
   }
 
   pan(dx, dy) {
@@ -83,6 +86,14 @@ export default class Camera {
   }
 
   update(dt) {
+    while (this.scrollTarget > 0) {
+      this.zoomOut();
+      this.scrollTarget--;
+    }
+    while (this.scrollTarget < 0) {
+      this.zoomIn();
+      this.scrollTarget++;
+    }
     if (Keyboard.isDown("ArrowUp")) {
       this.pan(0, -panSpeed / this.z);
     }
