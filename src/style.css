@@ -54,14 +54,6 @@ a {
   font-weight: normal;
 }
 
-.button {
-  margin: 5px;
-  padding: 10px;
-  border: 1px solid #999999;
-  text-align: center;
-  background-color: #ffffff;
-}
-
 .centered-children {
   /* height: 100vh; */
   width: 100vw;
@@ -75,28 +67,10 @@ a {
 
 .ui-container {
   margin: 0;
-  padding: 10px;
   position: fixed;
   z-index: 1;
   background-color: rgba(255, 255, 255, 0.75);
 }
-
-.editor-button {
-  border: 1px solid #eee;
-  width: 60px;
-  height: 60px;
-  margin-bottom: 10px;
-  line-height: 60px;
-  font-size: 12px;
-  font-weight: 400;
-  text-align: center;
-  background-color: white;
-}
-
-.editor-button.selected {
-  box-shadow: 0 0 6px #fff;
-}
-
 .button-background {
   position: absolute;
   top: 6px;
@@ -106,7 +80,7 @@ a {
 }
 
 .options {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   position: absolute;
   bottom: 0;
 }

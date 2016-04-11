@@ -4,23 +4,41 @@
 
 import React from 'react';
 
-let styles = {
+const bs = 54; // button size
+const ms = 8; // margin size
+
+const styles = {
+  container: {
+    padding: ms,
+    margin: 0,
+    marginLeft: ms,
+    marginRight: ms,
+    width: bs
+  },
   button: {
+    width: bs,
+    height: bs,
     backgroundColor: 'white',
     backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center'
+    backgroundPosition: 'center',
+    cursor: 'pointer'
   },
   hoverText: {
     position: 'relative',
-    left: (10+60+10),
-    top: (60-24)/2-5,
+    display: 'table',
+    left: (ms+bs+2*ms),
+    top: (bs-24)/2-5,
     textAlign: 'center',
     height: 24,
-    width: 80,
     lineHeight: '24px',
-    padding: 5,
     fontSize: 16,
     color: 'white',
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
     backgroundColor: 'rgba(0,0,0,0.75)',
     opacity: 1,
   }
@@ -58,7 +76,6 @@ export default class EditorButton extends React.Component {
     if (this.props.onClick) {
       this.props.onClick(e);
     }
-    console.log('click.');
   }
 
   render() {
@@ -67,27 +84,39 @@ export default class EditorButton extends React.Component {
       classNames += ' selected';
     }
 
+    let containerStyle = Object.assign({}, styles.container);
     let divStyle = Object.assign({}, styles.button);
+
     if (this.props.icon) {
       divStyle.backgroundImage = 'url("' + this.props.icon + '")';
     }
-    divStyle.opacity = (this.props.selected || this.state.hover) ? 1 : 0.5;
+    if (this.props.selected) {
+      divStyle.opacity = 1;
+      containerStyle.backgroundColor = 'rgba(255,255,255,0.3)';
+    } else if (this.state.hover || this.props.alwaysVisible) {
+      divStyle.opacity = 1;
+    } else {
+      divStyle.opacity = 0.5;
+    }
 
     return (
-      <div
-        className={classNames}
-        onClick={this.handleClick.bind(this)}
-        onMouseOver={this.handleMouseOver.bind(this)}
-        onMouseOut={this.handleMouseOut.bind(this)}
-        style={divStyle}
-        >
-        {this.state.hover ? (<HoverText text={this.props.text} />) : null}
+      <div style={containerStyle}>
+        <div
+          className={classNames}
+          onClick={this.handleClick.bind(this)}
+          onMouseOver={this.handleMouseOver.bind(this)}
+          onMouseOut={this.handleMouseOut.bind(this)}
+          style={divStyle}
+          >
+          {this.state.hover ? (<HoverText text={this.props.text} />) : null}
+        </div>
       </div>
     );
   }
 }
 
 EditorButton.defaultProps = {
+  alwaysVisible: false,
   selected: false,
   icon: null
 }

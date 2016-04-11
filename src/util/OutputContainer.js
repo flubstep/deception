@@ -6,8 +6,8 @@ let instances = [];
 
 export default class OutputContainer {
 
-  constructor(container) {
-    this.container = document.getElementById(container);
+  constructor(containerId) {
+    this.containerId = containerId;
     this.buffer = [];
     instances.push(this);
   }
@@ -21,7 +21,10 @@ export default class OutputContainer {
 
   flush() {
     let text = this.buffer.join('\n');
-    this.container.innerText = text;
+    let container = document.getElementById(this.containerId);
+    if (container) {
+      container.innerText = text;
+    }
     this.buffer = [];
   }
 
