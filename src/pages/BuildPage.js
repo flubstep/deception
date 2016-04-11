@@ -2,6 +2,10 @@
  * @providesModule BuildPage
  */
 
+import React from 'react';
+import ReactDOM from 'react-dom';
+import MapEditor from './mapeditor/MapEditor.js';
+
 import Game from '../util/GameTwo.js';
 import Camera from '../util/Camera.js';
 import GameMap from '../game/GameMap.js';
@@ -80,6 +84,8 @@ const load = () => {
     .add("static/tiles.png")
     .add("static/bigtrident/tiles.png")
     .load(Game.start);
+
+  ReactDOM.render((<MapEditor />), document.getElementById('editor-container'));
 }
 
 const BuildPage = {
