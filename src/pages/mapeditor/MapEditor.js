@@ -7,6 +7,7 @@ import React from 'react';
 import EditorButton from 'pages/mapeditor/EditorButton';
 import EditorOption from 'pages/mapeditor/EditorOption';
 import parseUrl from 'util/parseUrl';
+import Keyboard from 'util/Keyboard';
 
 const styles = {
   debug: {
@@ -29,13 +30,39 @@ const selections = [
     button: 'Terrain',
     shortcut: 'T',
     icon: "/static/icons/ic_filter_hdr_black_24dp_2x.png",
-    subcategories: ['Ocean', 'Grass', 'Forest', 'Desert']
+    subcategories: [
+      {
+        button: 'Ocean',
+        icon: "/static/icons/ocean_60x60.png"
+      },
+      {
+        button: 'Grass',
+        icon: "/static/icons/grassland_60x60.png"
+      },
+      {
+        button: 'Forest',
+        icon: "/static/icons/forest_60x60.png"
+      },
+      {
+        button: 'Desert',
+        icon: "/static/icons/desert_60x60.png"
+      }
+    ]
   },
   {
     button: 'Objects',
     shortcut: 'O',
     icon: "/static/icons/ic_local_florist_black_24dp_2x.png",
-    subcategories: ['Hill', 'Mountain']
+    subcategories: [
+      {
+        button: 'Hill',
+        icon: "/static/icons/hill_60x60.png"
+      },
+      {
+        button: 'Mountain',
+        icon: "/static/icons/mountain_60x60.png"
+      }
+    ]
   },
   {
     button: 'Height',
@@ -55,27 +82,41 @@ export default class MapEditor extends React.Component {
     super(props, context);
     this.state = {
       debugVisible: true,
-      selectedCategory: 'Move',
-      selectedIndex: 0
+      selectedCategory: selections[0],
+      selectedIndex: 0,
+      expandedSelections: false
     }
+    this.fadeTimeout = 0;
     this.setupHandlers();
   }
 
   setupHandlers() {
     selections.map((s) => {
-      console.log('selecting ' + s.button);
-      /*
       if (s.shortcut) {
-        Keyboard.addListener(s.shortcut, () => {
-          this.select(s.button);
+        Keyboard.addListener('Key' + s.shortcut, () => {
+          this.select(s);
         });
       }
-      */
     });
   }
 
-  select(button) {
-
+  select(selection, index = 0) {
+    let current = this.state.selectedCategory;
+    if (current.button === selection.button) {
+      if (current.subcategories) {
+        // this is the intended behavior, eventually the expandable
+        // list should be moved to an always-visible box
+        let newIndex = (this.state.selectedIndex + 1) % current.subcategories.length;
+        this.setState({
+          selectedIndex: newIndex
+        });
+      }
+    } else {
+      this.setState({
+        selectedCategory: selection,
+        selectedIndex: index
+      });
+    }
   }
 
   toggleDebug() {
@@ -87,30 +128,28 @@ export default class MapEditor extends React.Component {
     window.location = '/' + encodeURIComponent(route.map);
   }
 
+  renderSelection(selection) {
+    let buttonText = selection.button;
+    if (selection.shortcut) {
+      buttonText += ' [' + selection.shortcut + ']';
+    }
+    return (
+      <EditorButton
+        selection={selection}
+        key={selection.button}
+        text={buttonText}
+        icon={selection.icon}
+        selected={(this.state.selectedCategory.button == selection.button)}
+        selectedIndex={this.state.selectedIndex}
+        onClick={() => {this.select(selection)}}
+      />
+    );
+  }
+
   render() {
     return (
       <div id="editor" style={styles.sidebar} className="ui-container editor">
-        <EditorButton
-          text="Move [M]"
-          icon="/static/icons/ic_open_with_black_24dp_2x.png" 
-          />
-        <EditorButton
-          text="Terrain [T]"
-          icon="/static/icons/ic_filter_hdr_black_24dp_2x.png"
-          selected={true}
-          />
-        <EditorButton
-          text="Objects [O]"
-          icon="/static/icons/ic_local_florist_black_24dp_2x.png" 
-          />
-        <EditorButton
-          text="Height [H]"
-          icon="/static/icons/ic_layers_black_24dp_2x.png"
-          />
-        <EditorButton
-          text="Erase [E]"
-          icon="/static/icons/ic_delete_black_24dp_2x.png" 
-          />
+        {selections.map((selection) => (this.renderSelection(selection)))}
         <div className="options">
           <EditorButton
             text={this.state.debugVisible ? "Debug On" : "Debug Off"}
