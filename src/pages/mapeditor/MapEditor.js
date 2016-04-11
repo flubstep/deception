@@ -137,8 +137,6 @@ export default class MapEditor extends React.Component {
       <EditorButton
         selection={selection}
         key={selection.button}
-        text={buttonText}
-        icon={selection.icon}
         selected={(this.state.selectedCategory.button == selection.button)}
         selectedIndex={this.state.selectedIndex}
         onClick={() => {this.select(selection)}}

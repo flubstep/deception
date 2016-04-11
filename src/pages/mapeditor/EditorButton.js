@@ -79,16 +79,17 @@ export default class EditorButton extends React.Component {
   }
 
   render() {
-    let classNames = 'editor-button';
-    if (this.props.selected) {
-      classNames += ' selected';
-    }
 
+    let text = this.props.text || this.props.selection.button;
+    let icon = this.props.icon || this.props.selection.icon;
     let containerStyle = Object.assign({}, styles.container);
     let divStyle = Object.assign({}, styles.button);
 
-    if (this.props.icon) {
-      divStyle.backgroundImage = 'url("' + this.props.icon + '")';
+    if (this.props.selection.shortcut) {
+      text += ' [' + this.props.selection.shortcut + ']';
+    }
+    if (icon) {
+      divStyle.backgroundImage = 'url("' + icon + '")';
     }
     if (this.props.selected) {
       divStyle.opacity = 1;
@@ -102,13 +103,12 @@ export default class EditorButton extends React.Component {
     return (
       <div style={containerStyle}>
         <div
-          className={classNames}
           onClick={this.handleClick.bind(this)}
           onMouseOver={this.handleMouseOver.bind(this)}
           onMouseOut={this.handleMouseOut.bind(this)}
           style={divStyle}
           >
-          {this.state.hover ? (<HoverText text={this.props.text} />) : null}
+          {this.state.hover ? (<HoverText text={text} />) : null}
         </div>
       </div>
     );
@@ -118,5 +118,7 @@ export default class EditorButton extends React.Component {
 EditorButton.defaultProps = {
   alwaysVisible: false,
   selected: false,
-  icon: null
+  selection: {},
+  icon: null,
+  text: '',
 }
