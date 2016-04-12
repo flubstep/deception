@@ -16,8 +16,16 @@ const styles = {
     backgroundColor: 'rgba(0,0,0,0.75)',
     color: 'white'
   },
-  sidebar: {
-    paddingTop: 8
+  topbar: {
+    top: 0,
+    left: 0,
+    width: '100%',
+    display: 'flex'
+  },
+  options: {
+    position: 'absolute',
+    right: 0,
+    display: 'flex'
   }
 }
 
@@ -157,9 +165,9 @@ export default class MapEditor extends React.Component {
 
   render() {
     return (
-      <div id="editor" style={styles.sidebar} className="ui-container editor">
+      <div id="editor" style={styles.topbar} className="ui-container">
         {selections.map((selection) => (this.renderSelection(selection)))}
-        <div className="options">
+        <div style={styles.options}>
           <EditorButton
             text={this.state.debugVisible ? "Debug On" : "Debug Off"}
             icon="/static/icons/ic_track_changes_black_24dp_2x.png"

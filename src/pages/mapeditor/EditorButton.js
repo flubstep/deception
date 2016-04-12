@@ -10,9 +10,6 @@ const ms = 8; // margin size
 const styles = {
   container: {
     padding: ms,
-    margin: 0,
-    marginLeft: ms,
-    marginRight: ms,
     width: bs
   },
   button: {
@@ -26,8 +23,8 @@ const styles = {
   hoverText: {
     position: 'relative',
     display: 'table',
-    left: (ms+bs+2*ms),
-    top: (bs-24)/2-5,
+    left: ms/2,
+    top: (bs + ms/2),
     textAlign: 'center',
     height: 24,
     lineHeight: '24px',

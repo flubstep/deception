@@ -11,16 +11,12 @@ const ms = 8;
 const styles = {
   inventory: {
     position: 'fixed',
-    top: 0,
-    left: bs + ms*4,
-    paddingTop: ms,
-    paddingBottom: ms
+    top: bs + ms*2,
+    left: 0,
+    display: 'flex'
   },
   container: {
     padding: ms,
-    margin: 0,
-    marginLeft: ms,
-    marginRight: ms,
     width: bs
   },
   button: {
@@ -30,6 +26,7 @@ const styles = {
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     cursor: 'pointer',
+    border: '1px solid #666',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
