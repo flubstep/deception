@@ -121,6 +121,10 @@ export default class MapEditor extends React.Component {
         selectedIndex: index || 0
       });
     }
+    if (this.state.selectedCategory.subcategories) {
+      // todo -- use a 'terrain adder' module or something like that
+      window.currentTerrain = this.state.selectedCategory.subcategories[this.state.selectedIndex].button;
+    }
   }
 
   toggleDebug() {

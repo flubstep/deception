@@ -18,7 +18,8 @@ let camera = null;
 let gamemap = null;
 let mousePosition = {x: 0, y: 0};
 let mouseDown = false;
-let currentTerrain = 'Ocean';
+// todo -- make this into its own module
+window.currentTerrain = 'Ocean';
 
 let {range} = require('lodash');
 
