@@ -91,6 +91,13 @@ export default class MapEditor extends React.Component {
     this.setupHandlers();
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.selectedCategory.subcategories) {
+      // todo -- use a 'terrain adder' module or something like that
+      window.currentTerrain = nextState.selectedCategory.subcategories[nextState.selectedIndex].button;
+    }
+  }
+
   setupHandlers() {
     selections.map((s) => {
       if (s.shortcut) {
@@ -120,10 +127,6 @@ export default class MapEditor extends React.Component {
         selectedCategory: selection,
         selectedIndex: index || 0
       });
-    }
-    if (this.state.selectedCategory.subcategories) {
-      // todo -- use a 'terrain adder' module or something like that
-      window.currentTerrain = this.state.selectedCategory.subcategories[this.state.selectedIndex].button;
     }
   }
 
