@@ -7,16 +7,25 @@ import ReactDOM from 'react-dom';
 
 let {keys} = require('lodash');
 
+const styles = {
+  button: {
+    border: '1px solid #333',
+    backgroundColor: 'white',
+    padding: 8,
+    margin: 8
+  }
+}
+
 const PageDisplay = (props) => (
   <div className='row'>
-    <div className='large-text button'>
+    <div style={styles.button} className='large-text'>
       <a href={'/' + props.name}>
         {"Visit world: " + decodeURIComponent(props.name)}
       </a>
     </div>
     <div className='medium-text'>
       <a href={'/' + props.name + '/build'}>
-        World Editor
+        Build this World
       </a>
     </div>
   </div>
@@ -26,11 +35,11 @@ const LevelAddition = (props) => {
   let value = "";
   return (
     <div className='row'>
-      <input placeholder="New World Name" className='button medium-text' onChange={(e) => {
+      <input placeholder="New World Name" style={styles.button} className='medium-text' onChange={(e) => {
           value = e.nativeEvent.target.value;
         }}>
         </input>
-      <button className='button medium-text' onClick={(e) => {
+      <button style={styles.button} className='medium-text' onClick={(e) => {
           document.location = '/' + encodeURIComponent(value) + '/build';
         }}>Create
       </button>

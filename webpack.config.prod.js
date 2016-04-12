@@ -8,7 +8,10 @@ module.exports = {
     './src/index'
   ],
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx'],
+    root: [
+      path.resolve('./src')
+    ]
   },
   output: {
     path: path.join(__dirname, 'dist'),
