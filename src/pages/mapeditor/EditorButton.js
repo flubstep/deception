@@ -94,7 +94,7 @@ export default class EditorButton extends React.Component {
     }
     if (this.props.selected) {
       divStyle.opacity = 1;
-      containerStyle.backgroundColor = 'rgba(255,255,255,0.3)';
+      containerStyle.backgroundColor = 'rgba(255,255,0,0.6)';
     } else if (this.state.hover || this.props.alwaysVisible) {
       divStyle.opacity = 1;
     } else {

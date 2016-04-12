@@ -48,7 +48,7 @@ export default class InventorySelector extends React.Component {
     };
     let highlightStyle = {};
     if (this.props.index == index) {
-      highlightStyle.backgroundColor = 'rgba(255,255,255,0.3)';
+      highlightStyle.backgroundColor = 'rgba(255,255,0,0.6)';
     }
     let containerStyle = Object.assign({}, styles.container, highlightStyle);
     let buttonStyle = Object.assign({}, styles.button, backgroundStyle);
