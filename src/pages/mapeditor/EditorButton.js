@@ -41,6 +41,7 @@ const styles = {
     whiteSpace: 'nowrap',
     backgroundColor: 'rgba(0,0,0,0.75)',
     opacity: 1,
+    zIndex: 2
   }
 }
 

@@ -6,6 +6,7 @@ import React from 'react';
 
 import EditorButton from 'pages/mapeditor/EditorButton';
 import EditorOption from 'pages/mapeditor/EditorOption';
+import InventorySelector from 'pages/mapeditor/InventorySelector';
 import parseUrl from 'util/parseUrl';
 import Keyboard from 'util/Keyboard';
 
@@ -100,13 +101,16 @@ export default class MapEditor extends React.Component {
     });
   }
 
-  select(selection, index = 0) {
+  select(selection, index = undefined) {
     let current = this.state.selectedCategory;
     if (current.button === selection.button) {
       if (current.subcategories) {
         // this is the intended behavior, eventually the expandable
         // list should be moved to an always-visible box
-        let newIndex = (this.state.selectedIndex + 1) % current.subcategories.length;
+        let newIndex = index;
+        if (typeof(newIndex) === 'undefined') {
+          newIndex = (this.state.selectedIndex + 1) % current.subcategories.length;
+        }
         this.setState({
           selectedIndex: newIndex
         });
@@ -114,7 +118,7 @@ export default class MapEditor extends React.Component {
     } else {
       this.setState({
         selectedCategory: selection,
-        selectedIndex: index
+        selectedIndex: index || 0
       });
     }
   }
@@ -162,6 +166,11 @@ export default class MapEditor extends React.Component {
             />
         </div>
         {this.state.debugVisible ? (<div id="debug" style={styles.debug} className="ui-container debug"></div>) : null}
+        <InventorySelector
+          onSelectIndex={this.select.bind(this, this.state.selectedCategory)}
+          selection={this.state.selectedCategory}
+          index={this.state.selectedIndex}
+        />
       </div>
     );
   }
