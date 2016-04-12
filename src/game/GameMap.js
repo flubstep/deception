@@ -99,7 +99,7 @@ export default class GameMap {
     let {x, y, key} = this._normalize(mapX, mapY);
     if (this.blocks[key]) {
       let sprite = this.blocks[key];
-      // this.stage.removeChild(sprite);
+      this.stage.removeChild(sprite);
       delete this.blocks[key];
       this.saveTile(x, y);
     }

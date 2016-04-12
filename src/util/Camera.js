@@ -72,6 +72,10 @@ export default class Camera {
     this.layer.addChild(child);
   }
 
+  removeChild(child) {
+    this.layer.removeChild(child);
+  }
+
   flushUpdates() {
     this.layer.x = -this.x * this.z;
     this.layer.y = -this.y * this.z;

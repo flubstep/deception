@@ -34,14 +34,16 @@ const styles = {
 
 const selections = [
   {
+    name: 'Move',
     button: 'Move [1]',
     shortcut: 'Digit1',
     icon: "/static/icons/ic_open_with_black_24dp_2x.png"
   },
   {
+    name: 'Terrain',
     button: 'Terrain [2]',
     shortcut: 'Digit2',
-    icon: "/static/icons/ic_filter_hdr_black_24dp_2x.png",
+    icon: "/static/icons/ic_layers_black_24dp_2x.png",
     subcategories: [
       {
         button: 'Ocean',
@@ -62,9 +64,10 @@ const selections = [
     ]
   },
   {
+    name: 'Objects',
     button: 'Objects [3]',
     shortcut: 'Digit3',
-    icon: "/static/icons/ic_local_florist_black_24dp_2x.png",
+    icon: "/static/icons/ic_filter_hdr_black_24dp_2x.png",
     subcategories: [
       {
         button: 'Hill',
@@ -77,13 +80,9 @@ const selections = [
     ]
   },
   {
-    button: 'Height [4]',
+    name: 'Erase',
+    button: 'Erase [4]',
     shortcut: 'Digit4',
-    icon: "/static/icons/ic_layers_black_24dp_2x.png"
-  },
-  {
-    button: 'Erase [5]',
-    shortcut: 'Digit5',
     icon: "/static/icons/ic_delete_black_24dp_2x.png"
   }
 ]
@@ -103,12 +102,25 @@ export default class MapEditor extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (nextState.selectedCategory.subcategories) {
-      // todo -- use a 'terrain adder' module or something like that
-      let terrain = nextState.selectedCategory.subcategories[nextState.selectedIndex].button;
-      window.cursor.setDrawMode(terrain);
-    } else {
-      window.cursor.setPanMode();
+
+    switch (nextState.selectedCategory.name) {
+      case 'Move':
+        window.cursor.setPanMode();
+        break;
+
+      case 'Terrain':
+      case 'Objects':
+        let terrain = nextState.selectedCategory.subcategories[nextState.selectedIndex].button;
+        window.cursor.setDrawMode(terrain);
+        break;
+
+      case 'Erase':
+        window.cursor.setEraseMode();
+        break;
+
+      default:
+        console.warn('Undefined cursor state given:', nextState.selectedCategory.name);
+        window.cursor.setPanMode();
     }
   }
 
