@@ -32,7 +32,9 @@ const styles = {
     cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    fontSize: 14,
+    fontWeight: 600
   },
 }
 
