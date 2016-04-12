@@ -19,7 +19,7 @@ let gamemap = null;
 let mousePosition = {x: 0, y: 0};
 let mouseDown = false;
 // todo -- make this into its own module
-window.currentTerrain = 'Ocean';
+window.currentTerrain = null;
 
 let {range} = require('lodash');
 
@@ -48,7 +48,7 @@ Game.update = (dt) => {
 
 Game.mousemove = (e) => {
   mousePosition = camera.canvasPositionToCoordinates(e.offsetX, e.offsetY);
-  if (mouseDown) {
+  if (mouseDown && currentTerrain) {
     gamemap.add(mousePosition.x, mousePosition.y, currentTerrain);
   }
 }
@@ -56,7 +56,9 @@ Game.mousemove = (e) => {
 Game.mousedown = (e) => {
   mouseDown = true;
   mousePosition = camera.canvasPositionToCoordinates(e.offsetX, e.offsetY);
-  gamemap.add(mousePosition.x, mousePosition.y, currentTerrain);
+  if (currentTerrain) {
+    gamemap.add(mousePosition.x, mousePosition.y, currentTerrain);
+  }
 }
 
 Game.mouseup = (e) => {

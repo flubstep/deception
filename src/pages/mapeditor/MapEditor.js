@@ -106,6 +106,8 @@ export default class MapEditor extends React.Component {
     if (nextState.selectedCategory.subcategories) {
       // todo -- use a 'terrain adder' module or something like that
       window.currentTerrain = nextState.selectedCategory.subcategories[nextState.selectedIndex].button;
+    } else {
+      window.currentTerrain = null;
     }
   }
 
