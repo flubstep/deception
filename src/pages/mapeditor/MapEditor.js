@@ -34,13 +34,13 @@ const styles = {
 
 const selections = [
   {
-    button: 'Move',
-    shortcut: 'M',
+    button: 'Move [1]',
+    shortcut: 'Digit1',
     icon: "/static/icons/ic_open_with_black_24dp_2x.png"
   },
   {
-    button: 'Terrain',
-    shortcut: 'T',
+    button: 'Terrain [2]',
+    shortcut: 'Digit2',
     icon: "/static/icons/ic_filter_hdr_black_24dp_2x.png",
     subcategories: [
       {
@@ -62,8 +62,8 @@ const selections = [
     ]
   },
   {
-    button: 'Objects',
-    shortcut: 'O',
+    button: 'Objects [3]',
+    shortcut: 'Digit3',
     icon: "/static/icons/ic_local_florist_black_24dp_2x.png",
     subcategories: [
       {
@@ -77,13 +77,13 @@ const selections = [
     ]
   },
   {
-    button: 'Height',
-    shortcut: 'H',
+    button: 'Height [4]',
+    shortcut: 'Digit4',
     icon: "/static/icons/ic_layers_black_24dp_2x.png"
   },
   {
-    button: 'Erase',
-    shortcut: 'E',
+    button: 'Erase [5]',
+    shortcut: 'Digit5',
     icon: "/static/icons/ic_delete_black_24dp_2x.png"
   }
 ]
@@ -112,7 +112,7 @@ export default class MapEditor extends React.Component {
   setupHandlers() {
     selections.map((s) => {
       if (s.shortcut) {
-        Keyboard.addListener('Key' + s.shortcut, () => {
+        Keyboard.addListener(s.shortcut, () => {
           this.select(s);
         });
       }

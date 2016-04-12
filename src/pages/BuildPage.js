@@ -33,20 +33,6 @@ Game.load = () => {
   let firebaseRef = new Firebase(g.firebaseUrl).child(route.map);
   camera = new Camera(Game.stage);
   gamemap = new GameMap(camera, firebaseRef);
-  let select = (terrain) => {
-    return () => {
-      currentTerrain = terrain;
-    };
-  }
-
-  Keyboard.addListener('Digit1', select('Ocean'));
-  Keyboard.addListener('Digit2', select('Grass'));
-  Keyboard.addListener('Digit3', select('Forest'));
-  Keyboard.addListener('Digit4', select('Hill'));
-  Keyboard.addListener('Digit5', select('Mountain'));
-  Keyboard.addListener('Digit6', select('Desert'));
-  Keyboard.addListener('Digit7', select('Snow'));
-
   window.camera = camera;
 }
 

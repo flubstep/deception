@@ -83,9 +83,6 @@ export default class EditorButton extends React.Component {
     let containerStyle = Object.assign({}, styles.container);
     let divStyle = Object.assign({}, styles.button);
 
-    if (this.props.selection.shortcut) {
-      text += ' [' + this.props.selection.shortcut + ']';
-    }
     if (icon) {
       divStyle.backgroundImage = 'url("' + icon + '")';
     }
