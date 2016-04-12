@@ -24,7 +24,7 @@ const styles = {
     position: 'relative',
     display: 'table',
     left: ms/2,
-    top: (bs + ms/2),
+    top: -(24 + ms/2),
     textAlign: 'center',
     height: 24,
     lineHeight: '24px',

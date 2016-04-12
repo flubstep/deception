@@ -12,12 +12,15 @@ import Keyboard from 'util/Keyboard';
 
 const styles = {
   debug: {
+    position: 'fixed',
+    top: 0,
+    right: 0,
     padding: 10,
     backgroundColor: 'rgba(0,0,0,0.75)',
     color: 'white'
   },
-  topbar: {
-    top: 0,
+  bottombar: {
+    bottom: 0,
     left: 0,
     width: '100%',
     display: 'flex'
@@ -165,7 +168,7 @@ export default class MapEditor extends React.Component {
 
   render() {
     return (
-      <div id="editor" style={styles.topbar} className="ui-container">
+      <div id="editor" style={styles.bottombar} className="ui-container">
         {selections.map((selection) => (this.renderSelection(selection)))}
         <div style={styles.options}>
           <EditorButton

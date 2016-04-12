@@ -11,7 +11,7 @@ const ms = 8;
 const styles = {
   inventory: {
     position: 'fixed',
-    top: bs + ms*2,
+    bottom: bs + ms*2,
     left: 0,
     display: 'flex'
   },
@@ -26,7 +26,7 @@ const styles = {
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     cursor: 'pointer',
-    border: '1px solid #666',
+    border: '1px solid #333',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
