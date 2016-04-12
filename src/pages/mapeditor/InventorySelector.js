@@ -34,7 +34,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     fontSize: 14,
-    fontWeight: 600
+    textShadow: '2px 2px 2px black'
   },
 }
 
