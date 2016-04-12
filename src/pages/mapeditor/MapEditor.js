@@ -105,9 +105,10 @@ export default class MapEditor extends React.Component {
   componentWillUpdate(nextProps, nextState) {
     if (nextState.selectedCategory.subcategories) {
       // todo -- use a 'terrain adder' module or something like that
-      window.currentTerrain = nextState.selectedCategory.subcategories[nextState.selectedIndex].button;
+      let terrain = nextState.selectedCategory.subcategories[nextState.selectedIndex].button;
+      window.cursor.setDrawMode(terrain);
     } else {
-      window.currentTerrain = null;
+      window.cursor.setPanMode();
     }
   }
 

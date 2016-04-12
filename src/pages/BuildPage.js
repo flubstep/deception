@@ -4,13 +4,15 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MapEditor from './mapeditor/MapEditor.js';
 
-import Game from '../util/GameTwo.js';
-import Camera from '../util/Camera.js';
-import GameMap from '../game/GameMap.js';
-import Keyboard from '../util/Keyboard.js';
-import parseUrl from '../util/parseUrl.js';
+import Game from 'util/GameTwo';
+import Camera from 'util/Camera';
+import GameMap from 'game/GameMap';
+import Keyboard from 'util/Keyboard';
+import parseUrl from 'util/parseUrl';
+
+import MapEditor from 'pages/mapeditor/MapEditor';
+import BuildCursor from 'pages/mapeditor/BuildCursor';
 
 // game logic main
 
@@ -18,8 +20,8 @@ let camera = null;
 let gamemap = null;
 let mousePosition = {x: 0, y: 0};
 let mouseDown = false;
-// todo -- make this into its own module
-window.currentTerrain = null;
+
+window.cursor = null;
 
 let {range} = require('lodash');
 
@@ -34,35 +36,28 @@ Game.load = () => {
   camera = new Camera(Game.stage);
   gamemap = new GameMap(camera, firebaseRef);
   window.camera = camera;
+  window.cursor = new BuildCursor(gamemap, camera);
 }
 
 Game.update = (dt) => {
   let fps = 1/dt;
   info.log('FPS:', round(1/dt));
   info.log('Camera Position: (' + round(camera.x) + ',' + round(camera.y) + ') @ ' + round(camera.z) + 'x');
-  info.log('Mouse down:', mouseDown);
   info.log('Mouse position: (' +  round(mousePosition.x) + ', ' + round(mousePosition.y) + ')')
-  info.log('Terrain: ' + currentTerrain);
   camera.update(dt);
 }
 
 Game.mousemove = (e) => {
   mousePosition = camera.canvasPositionToCoordinates(e.offsetX, e.offsetY);
-  if (mouseDown && currentTerrain) {
-    gamemap.add(mousePosition.x, mousePosition.y, currentTerrain);
-  }
+  cursor.onMouseMove(e);
 }
 
 Game.mousedown = (e) => {
-  mouseDown = true;
-  mousePosition = camera.canvasPositionToCoordinates(e.offsetX, e.offsetY);
-  if (currentTerrain) {
-    gamemap.add(mousePosition.x, mousePosition.y, currentTerrain);
-  }
+  cursor.onMouseDown(e);
 }
 
 Game.mouseup = (e) => {
-  mouseDown = false;
+  cursor.onMouseUp(e);
 }
 
 const load = () => {
