@@ -7,12 +7,12 @@ import ReactDOM from 'react-dom';
 
 import Game from 'util/GameTwo';
 import Camera from 'util/Camera';
-import GameMap from 'game/GameMap';
 import Keyboard from 'util/Keyboard';
 import parseUrl from 'util/parseUrl';
 
+import GameMap from 'game/GameMap';
+import BuildCursor from 'game/BuildCursor';
 import MapEditor from 'pages/mapeditor/MapEditor';
-import BuildCursor from 'pages/mapeditor/BuildCursor';
 
 // game logic main
 
