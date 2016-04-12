@@ -93,7 +93,7 @@ export default class MapEditor extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      debugVisible: true,
+      debugVisible: false,
       selectedCategory: selections[0],
       selectedIndex: 0,
       expandedSelections: false
