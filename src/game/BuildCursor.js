@@ -43,8 +43,11 @@ class PanHandler {
   }
   onMouseMove(e) {
     if (this.panning) {
-      let currentPosition = {x: e.offsetX, y: e.offsetY};
-      // todo: camera move
+      let pos = {x: e.offsetX, y: e.offsetY};
+      let [dx, dy] = [this.startPosition.x - pos.x, this.startPosition.y - pos.y];
+      let zoom = this.camera.z;
+      this.camera.pan(dx / zoom, dy / zoom);
+      this.startPosition = pos;
     }
   }
 }
