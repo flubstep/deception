@@ -2,7 +2,7 @@
  * @providesModule GameThree
  */
 
-import OutputContainer from './OutputContainer';
+import OutputContainer from 'util/OutputContainer';
 
 let lastT = null;
 

@@ -8,7 +8,8 @@ let {
   toPairs
 } = require('lodash');
 
-import Terrain from './Terrain.js';
+import EventEmitter from 'events';
+import Terrain from 'game/Terrain';
 
 const tileSide = 60;
 
@@ -20,6 +21,7 @@ export default class GameMap {
     this.stage = stage;
     this.blocks = {};
     this.firebaseRef = firebaseRef;
+    this.events = new EventEmitter();
     if (firebaseRef) {
       this.firebaseRef.once('value', (store) => {
         // todo: consolidate this with MapLoader? there's
@@ -29,8 +31,13 @@ export default class GameMap {
     }
   }
 
+  addListener(event, callback) {
+    this.events.addListener(event, callback);
+  }
+
   load(o) {
     // todo: make this live update
+    this.events.emit('load');
     if (o) {
       toPairs(o).map(([x, xList]) => {
         toPairs(xList).map(([y, name]) => {

@@ -4,9 +4,10 @@
 
 import React from 'react';
 
-import EditorButton from 'pages/mapeditor/EditorButton';
-import EditorOption from 'pages/mapeditor/EditorOption';
-import InventorySelector from 'pages/mapeditor/InventorySelector';
+import EditorButton from 'react/mapeditor/EditorButton';
+import EditorOption from 'react/mapeditor/EditorOption';
+import InventorySelector from 'react/mapeditor/InventorySelector';
+import LoadingIndicator from 'react/LoadingIndicator';
 import parseUrl from 'util/parseUrl';
 import Keyboard from 'util/Keyboard';
 
@@ -92,6 +93,7 @@ export default class MapEditor extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
+      loading: true,
       debugVisible: false,
       selectedCategory: selections[0],
       selectedIndex: 0,
@@ -99,6 +101,16 @@ export default class MapEditor extends React.Component {
     }
     this.fadeTimeout = 0;
     this.setupHandlers();
+    if (this.props.map) {
+      this.props.map.addListener('load', (() => {
+        console.log('ready');
+        this.setReady()
+      }));
+    }
+  }
+
+  setReady() {
+    this.setState({loading: false});
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -182,30 +194,37 @@ export default class MapEditor extends React.Component {
   }
 
   render() {
-    return (
-      <div id="editor" style={styles.bottombar} className="ui-container">
-        {selections.map((selection) => (this.renderSelection(selection)))}
-        <div style={styles.options}>
-          <EditorButton
-            text={this.state.debugVisible ? "Debug On" : "Debug Off"}
-            icon="/static/icons/ic_track_changes_black_24dp_2x.png"
-            alwaysVisible={this.state.debugVisible}
-            onClick={this.toggleDebug.bind(this)}
-            />
-          <EditorButton
-            text="Play World"
-            icon="/static/icons/ic_play_circle_filled_black_24dp_2x.png"
-            onClick={this.redirectToWorld.bind(this)}
-            />
+    if (this.props.map && this.state.loading) {
+      return (<LoadingIndicator />);
+    } else {
+      return (
+        <div id="editor" style={styles.bottombar} className="ui-container">
+          {selections.map((selection) => (this.renderSelection(selection)))}
+          <div style={styles.options}>
+            <EditorButton
+              text={this.state.debugVisible ? "Debug On" : "Debug Off"}
+              icon="/static/icons/ic_track_changes_black_24dp_2x.png"
+              alwaysVisible={this.state.debugVisible}
+              onClick={this.toggleDebug.bind(this)}
+              />
+            <EditorButton
+              text="Play World"
+              icon="/static/icons/ic_play_circle_filled_black_24dp_2x.png"
+              onClick={this.redirectToWorld.bind(this)}
+              />
+          </div>
+          {this.state.debugVisible ? (<div id="debug" style={styles.debug} className="ui-container debug"></div>) : null}
+          <InventorySelector
+            onSelectIndex={this.select.bind(this, this.state.selectedCategory)}
+            selection={this.state.selectedCategory}
+            index={this.state.selectedIndex}
+          />
         </div>
-        {this.state.debugVisible ? (<div id="debug" style={styles.debug} className="ui-container debug"></div>) : null}
-        <InventorySelector
-          onSelectIndex={this.select.bind(this, this.state.selectedCategory)}
-          selection={this.state.selectedCategory}
-          index={this.state.selectedIndex}
-        />
-      </div>
-    );
+      );
+    }
   }
+}
 
+MapEditor.defaultProps = {
+  map: null
 }

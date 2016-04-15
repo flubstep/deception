@@ -8,7 +8,7 @@ let {
   mapValues
 } = require('lodash');
 
-import Keyboard from '../util/Keyboard.js';
+import Keyboard from 'util/Keyboard.js';
 
 const panSpeed = 5;
 const zoomRatio = 1.02;

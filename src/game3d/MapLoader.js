@@ -2,7 +2,8 @@
  * @providesModule MapLoader
  */
 
-import Terrain3D from './Terrain3D';
+import Terrain3D from 'game3d/Terrain3D';
+import EventEmitter from 'events';
 
 let {toPairs} = require('lodash');
 
@@ -12,10 +13,16 @@ export default class MapLoader {
     this.scene = scene;
     this.gameObjects = {};
     this.firebaseRef = firebaseRef;
+    this.events = new EventEmitter();
     this.firebaseRef.on('value', (store) => {
       // todo: error handling on store error
       this.update(store.val());
+      this.events.emit('load');
     });
+  }
+
+  addListener(event, callback) {
+    this.events.addListener(event, callback);
   }
 
   setdefault(x, y) {

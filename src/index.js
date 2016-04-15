@@ -4,17 +4,17 @@ import 'babel-core/register';
 import 'babel-polyfill';
 import './style.css';
 
-import OutputContainer from './util/OutputContainer.js';
-import Constants from './util/Constants.js';
+import OutputContainer from 'util/OutputContainer';
+import Constants from 'util/Constants';
 
 // set up convenience functionality
 window.g = Constants;
 window.info = new OutputContainer('debug');
 
-import WalkPage from './pages/WalkPage.js';
-import BuildPage from './pages/BuildPage.js';
-import IndexPage from './pages/IndexPage.js';
-import parseUrl from './util/parseUrl.js';
+import WalkPage from 'pages/WalkPage';
+import BuildPage from 'pages/BuildPage';
+import IndexPage from 'pages/IndexPage';
+import parseUrl from 'util/parseUrl';
 
 let route = parseUrl();
 

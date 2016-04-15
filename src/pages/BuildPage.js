@@ -12,7 +12,7 @@ import parseUrl from 'util/parseUrl';
 
 import GameMap from 'game/GameMap';
 import BuildCursor from 'game/BuildCursor';
-import MapEditor from 'pages/mapeditor/MapEditor';
+import MapEditor from 'react/mapeditor/MapEditor';
 
 // game logic main
 
@@ -37,6 +37,7 @@ Game.load = () => {
   gamemap = new GameMap(camera, firebaseRef);
   window.camera = camera;
   window.cursor = new BuildCursor(gamemap, camera);
+  ReactDOM.render((<MapEditor map={gamemap}/>), document.getElementById('editor-container'));
 }
 
 Game.update = (dt) => {
@@ -68,8 +69,6 @@ const load = () => {
     .add("static/tiles.png")
     .add("static/bigtrident/tiles.png")
     .load(Game.start);
-
-  ReactDOM.render((<MapEditor />), document.getElementById('editor-container'));
 }
 
 const BuildPage = {

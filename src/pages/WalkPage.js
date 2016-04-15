@@ -2,13 +2,19 @@
  * @providesModule WalkPage
  */
 
-import Game from '../util/GameThree.js';
-import Camera from '../util/Camera.js';
-import GameMap from '../game/GameMap.js';
-import Keyboard from '../util/Keyboard.js';
-import Terrain3D from '../game3d/Terrain3D.js';
-import MapLoader from '../game3d/MapLoader.js';
-import parseUrl from '../util/parseUrl.js';
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import Game from 'util/GameThree';
+import Camera from 'util/Camera';
+import Keyboard from 'util/Keyboard';
+import parseUrl from 'util/parseUrl';
+
+import GameMap from 'game/GameMap';
+import Terrain3D from 'game3d/Terrain3D';
+import MapLoader from 'game3d/MapLoader';
+
+import WalkMenu from 'react/WalkMenu';
 
 // game logic main
 let {range, random} = require('lodash');
@@ -48,6 +54,8 @@ Game.load = () => {
 
   Game.camera.position.y = 0.5;
   Game.camera.position.z = 5;
+
+  ReactDOM.render((<WalkMenu loader={loader}/>), document.getElementById('editor-container'));
 }
 
 Game.update = (dt) => {
